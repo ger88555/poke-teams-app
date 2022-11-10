@@ -4,6 +4,7 @@ import { StoreProvider } from "../StoreProvider"
 import { NavigationContainer } from "@react-navigation/native"
 import { MainNavigator } from "../../navigators"
 import * as SplashScreen from "expo-splash-screen"
+import { NavigationTheme } from "../../../constants"
 import { initAxios, initFirebase } from "../../../utils"
 
 SplashScreen.preventAutoHideAsync()
@@ -30,7 +31,7 @@ export const Root = () => {
 
     return (
         <StoreProvider>
-            <NavigationContainer onReady={hideSplashScreen}>
+            <NavigationContainer onReady={hideSplashScreen} theme={NavigationTheme}>
                 <StatusBar style="inverted" />
                 <MainNavigator />
             </NavigationContainer>
