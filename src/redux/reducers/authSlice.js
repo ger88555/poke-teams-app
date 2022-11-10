@@ -1,46 +1,52 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    data: {
+    user: {
         email: "",
+        photoURL: "",
+        displayName: "",
+    },
+    credential: {
+        providerId: null,
         token: ""
     },
-    loading: false,
-    errors: {},
-    authenticated: false
+    error: null
 }
 
 export const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        logInStart(state) {
-            state = { ...initialState }
-            state.loading = true
-        },
-        logInSuccess(state, { payload }) {
-            const { email, token } = payload
+        login(state, { payload }) {
+            const { displayName, email, photoURL } = payload.user
+            const { providerId, token } = payload
 
-            state = {
-                ...initialState,
-                data: { email, token },
-                authenticated: true
+            state.user = {
+                email,
+                photoURL,
+                displayName,
             }
-        },
-        logInFailure(state, { payload }) {
-            const { errors } = payload
-
-            state = {
-                ...initialState,
-                errors
+            state.credential = {
+                providerId,
+                token
             }
+            state.error = initialState.error
         },
-        logOutStart(state) {
-            state.loading = true
+        logout(state) {
+            state.user = initialState.user
+            state.credential = initialState.credential
+            state.error = initialState.error
         },
-        logOutSuccess(state) {
-            // eslint-disable-next-line no-unused-vars
-            state = { ...initialState }
-        }
+        setError(state, { payload }) {
+            state.user = initialState.user,
+            state.credential = initialState.credential
+            state.error = payload
+        },
     }
 })
+
+export const { login, logout, setError } = authSlice.actions
+
+export const selectUser = state => state.auth.user
+export const selectError = state => state.auth.error
+export const selectIsAuthenticated = state => !!state.auth.credential.token?.length

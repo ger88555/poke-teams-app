@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flexDirection: "column",
         justifyContent: "flex-start",
-        paddingTop: Measures.screen.offsetTop,
-        paddingHorizontal: Measures.screen.offsetX,
+        paddingTop: Measures.screen.insetTop,
+        paddingHorizontal: Measures.screen.insetX,
         backgroundColor: Colors.negative,
     },
     scrollable: {

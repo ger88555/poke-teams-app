@@ -12,7 +12,7 @@ const Navigator = () => (
         headerTitleStyle: styles.headerTitle,
         headerTitleAlign: "center",
     }}>
-        <Stack.Screen name="Login" component={Login} options={{ title: "Iniciar Sesión" }} />
+        <Stack.Screen name="Login" component={Login} options={{ title: "Sign In" }} />
     </Stack.Navigator>
 )
 

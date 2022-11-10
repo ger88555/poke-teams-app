@@ -4,7 +4,7 @@ import { StoreProvider } from "../StoreProvider"
 import { NavigationContainer } from "@react-navigation/native"
 import { MainNavigator } from "../../navigators"
 import * as SplashScreen from "expo-splash-screen"
-import { initAxios } from "../../../utils"
+import { initAxios, initFirebase } from "../../../utils"
 
 SplashScreen.preventAutoHideAsync()
 
@@ -13,8 +13,7 @@ export const Root = () => {
 
     useEffect(() => {
         initAxios()
-
-        // other setup tasks
+        initFirebase()
 
         setIsReady(true)
     }, [])

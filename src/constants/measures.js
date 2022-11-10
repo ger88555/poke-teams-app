@@ -1,10 +1,18 @@
 export const Measures = {
     screen: {
-        offsetTop: 8,
-        offsetX: 16
+        insetTop: 8,
+        insetX: 16,
     },
     button: {
-        offsetY: 12,
-        offsetX: 16,
-    }
+        insetY: 12,
+        insetX: 16,
+    },
+    error: {
+        insetY: 8,
+        insetX: 8,
+        offsetTop: 12,
+    },
+    separator: {
+        vertical: 8
+    },
 }

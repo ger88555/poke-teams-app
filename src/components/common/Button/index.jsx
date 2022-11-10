@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
         width: "100%",
         flexDirection: "row",
         justifyContent: "center",
-        paddingVertical: Measures.button.offsetY,
-        paddingHorizontal: Measures.button.offsetX,
+        paddingVertical: Measures.button.insetY,
+        paddingHorizontal: Measures.button.insetX,
         backgroundColor: Colors.lightSecondary,
     },
     text: {
