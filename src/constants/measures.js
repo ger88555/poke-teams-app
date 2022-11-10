@@ -12,5 +12,9 @@ export const Measures = {
         insetX: 8,
         offsetTop: 12,
     },
+    card: {
+        insetY: 12,
+        insetX: 12,
+    },
     separator: 8,
 }

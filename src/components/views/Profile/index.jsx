@@ -1,7 +1,7 @@
 import React, { useCallback } from "react"
 import { useDispatch } from "react-redux"
 import { logout } from "../../../redux/reducers/authSlice"
-import { Button, Screen } from "../../common"
+import { Button, ProfileCard, Screen, Separator } from "../../common"
 
 export const Profile = () => {
     const dispatch = useDispatch()
@@ -11,7 +11,9 @@ export const Profile = () => {
     }, [])
 
     return (
-        <Screen scrollable={false}>
+        <Screen>
+            <ProfileCard />
+            <Separator />
             <Button title="Sign out" onPress={handleLogout} />
         </Screen>
     )
