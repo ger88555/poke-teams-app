@@ -3,6 +3,12 @@ export const Measures = {
         insetTop: 8,
         insetX: 16,
     },
+    header: {
+        iconSize: 30,
+    },
+    tabBar: {
+        height: 60,
+    },
     button: {
         insetY: 12,
         insetX: 16,
