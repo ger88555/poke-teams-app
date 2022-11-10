@@ -12,7 +12,5 @@ export const Measures = {
         insetX: 8,
         offsetTop: 12,
     },
-    separator: {
-        vertical: 8
-    },
+    separator: 8,
 }
