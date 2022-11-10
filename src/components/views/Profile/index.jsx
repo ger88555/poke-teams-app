@@ -1,31 +1,18 @@
-import React from "react"
-import { StyleSheet, View, Text } from "react-native"
-import { connect } from "react-redux"
-import { Colors } from "../../../constants"
-import { Screen } from "../../common"
+import React, { useCallback } from "react"
+import { useDispatch } from "react-redux"
+import { logout } from "../../../redux/reducers/authSlice"
+import { Button, Screen } from "../../common"
 
-const Profile = () => {    
+export const Profile = () => {
+    const dispatch = useDispatch()
+
+    const handleLogout = useCallback(() => {
+        dispatch(logout())
+    }, [])
+
     return (
         <Screen scrollable={false}>
-            <View style={styles.container}>
-                <Text style={styles.text}>This is the Profile screen.</Text>
-            </View>
+            <Button title="Sign out" onPress={handleLogout} />
         </Screen>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignSelf: "center",
-        flexDirection: "row",
-    },
-    text: {
-        color: Colors.lightSecondary,
-        textAlign: "center",
-    }
-})
-
-const ConnectedProfile = connect(null)(Profile)
-
-export { ConnectedProfile as Profile }
