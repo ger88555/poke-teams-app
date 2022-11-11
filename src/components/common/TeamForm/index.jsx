@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useContext, useMemo, useState } from "react"
 import { StyleSheet, useWindowDimensions } from "react-native"
 import { FormProvider, useForm } from "react-hook-form"
 import { SceneMap, TabView } from "react-native-tab-view"
@@ -6,6 +6,9 @@ import { DetailsStep } from "./DetailsStep"
 import { PokemonsStep } from "./PokemonsStep"
 import { Measures } from "../../../constants"
 import { TabBar } from "./TabBar"
+import { useSelector } from "react-redux"
+import { selectTeamData } from "../../../redux/reducers/teamDetailsSlice"
+import { NavigationRouteContext } from "@react-navigation/native"
 
 const renderScene = SceneMap({
     details: DetailsStep,
@@ -13,9 +16,15 @@ const renderScene = SceneMap({
 })
 
 export const TeamForm = () => {
-    const layout = useWindowDimensions()
-    const methods = useForm()
+    const teamId = useContext(NavigationRouteContext).params?.id
+    const existing = useSelector(selectTeamData)
+    const defaultValues = useMemo(
+        () => teamId ? Object.assign({}, existing, { region_id: existing.region.id }) : undefined,
+        [teamId]
+    )
+    const methods = useForm({ defaultValues })
     
+    const layout = useWindowDimensions()
     const renderTabBar = useCallback((props) => <TabBar {...props} />, [])
     const [index, setIndex] = useState(0)
     const [routes] = useState([

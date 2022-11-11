@@ -8,17 +8,18 @@ import { fetchPokemons, selectPokemonsData } from "../../../redux/reducers/pokem
 import { FormError } from "../FormError"
 import { PokemonsPicker } from "../PokemonsPicker"
 import { TeamsApi } from "../../../services/firestore"
-import { NavigationContext } from "@react-navigation/native"
+import { NavigationContext, NavigationRouteContext } from "@react-navigation/native"
 import { selectUser } from "../../../redux/reducers/authSlice"
 import { selectRegionsData } from "../../../redux/reducers/regionsSlice"
 
 export const PokemonsStep = () => {
     const navigation = useContext(NavigationContext)
-    const [submitting, setSubmitting] = useState(false)
+    const teamId = useContext(NavigationRouteContext).params?.id || null
+    const userId = useSelector(selectUser).id
     const dispatch = useDispatch()
-    const { id : userId } = useSelector(selectUser)
     const pokemons = useSelector(selectPokemonsData)
     const regions = useSelector(selectRegionsData)
+    const [submitting, setSubmitting] = useState(false)
     const { handleSubmit, formState: { errors } } = useFormContext()
     const disableSubmit = useMemo(() => !!Object.keys(errors).length || submitting, [errors, submitting])
 
@@ -32,19 +33,24 @@ export const PokemonsStep = () => {
         try {
             setSubmitting(true)
 
+            delete data.id
+            data.user = userId
             data.pokemons = data.pokemons.filter(p => p.id != null)
             data.region = regions.results.find(r => r.id === data.region_id)
             delete data.region_id
-            data.user = userId
-    
-            await TeamsApi.store(data)
+            
+            if (teamId) {
+                await TeamsApi.update(teamId, data)
+            } else {
+                await TeamsApi.store(data)
+            }
 
             navigation.navigate("Teams")
         } catch (error) {
             setSubmitting(false)
         }
-    }, [userId, regions.results.length])
-
+    }, [teamId, userId, regions.results.length])
+    
     return (
         <View style={styles.container}>
             <PokemonsPicker name="pokemons" />

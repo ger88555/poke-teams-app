@@ -14,7 +14,8 @@ const TeamOptionsButton = () => {
     const id = route?.params?.id
     
     const updatePressHandler = useCallback(() => {
-        // TODO: navigate to edit screen
+        navigation.navigate("TeamEdit", { id })
+        setIsOpen(false)
     }, [id])
     const deletePressHandler = useCallback(() => {
         Alert.alert("Delete Team", "Are you sure you want to delete this team?", [
