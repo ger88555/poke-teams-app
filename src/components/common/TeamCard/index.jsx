@@ -23,7 +23,7 @@ export const TeamCard = () => {
 
 const styles = StyleSheet.create({
     detailsContainer: {
-        flex: 1,
+        flexShrink: 1,
         flexDirection: "column",
         paddingVertical: Measures.card.insetY,
         paddingHorizontal: Measures.card.insetX,

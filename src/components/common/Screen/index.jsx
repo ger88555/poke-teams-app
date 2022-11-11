@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         paddingTop: Measures.screen.insetTop,
         paddingHorizontal: Measures.screen.insetX,
         backgroundColor: Colors.negative,
+        minHeight: "100%",
     },
     scrollable: {
         flex: 0,

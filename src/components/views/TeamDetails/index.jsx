@@ -1,14 +1,15 @@
 import React, { useCallback } from "react"
 import { StyleSheet } from "react-native"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useFocusEffect } from "@react-navigation/native"
-import { fetchTeam } from "../../../redux/reducers/teamDetailsSlice"
-import { Screen, TeamCard, TeamOptionsButton } from "../../common"
+import { fetchTeam, selectTeamLoading } from "../../../redux/reducers/teamDetailsSlice"
+import { LoadingIndicator, Screen, TeamCard, TeamOptionsButton } from "../../common"
 
 export const TeamDetails = ({ route }) => {
     const id = route.params?.id
 
     const dispatch = useDispatch()
+    const loading = useSelector(selectTeamLoading)
 
     const refresh = useCallback(() => { dispatch(fetchTeam(id)) }, [id])
     useFocusEffect(refresh)
@@ -16,7 +17,7 @@ export const TeamDetails = ({ route }) => {
     return (
         <>
             <Screen style={styles.screen}>
-                <TeamCard />
+                {loading ? <LoadingIndicator /> : <TeamCard />}
             </Screen>
             <TeamOptionsButton />
         </>

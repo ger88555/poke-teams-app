@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     photo: {
-        flexGrow: 1,
+        flex: 1,
         resizeMode: "cover",
         aspectRatio: 1,
         borderWidth: 4,

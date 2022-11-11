@@ -19,7 +19,7 @@ export const ProfileCard = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexShrink: 1,
         flexDirection: "row",
         justifyContent: "flex-start",
         paddingVertical: Measures.card.insetY,
