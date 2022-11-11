@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         paddingVertical: Measures.error.insetY,
         paddingHorizontal: Measures.error.insetX,
-        marginTop: Measures.error.offsetTop,
         backgroundColor: Colors.lightSecondary,
     },
     text: {

@@ -16,6 +16,7 @@ export const Login = () => {
             <Button title="Google Sign In" onPress={() => { googleSignInAsync() }} disabled={!isGoogleReady} />
             <Separator />
             <Button title="Facebook Sign In" onPress={() => { facebookSignInAsync() }} disabled={!isFacebookReady} />
+            <Separator />
             <FormError error={error} />
         </Screen>
     )

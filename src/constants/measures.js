@@ -16,7 +16,6 @@ export const Measures = {
     error: {
         insetY: 8,
         insetX: 8,
-        offsetTop: 12,
     },
     card: {
         insetY: 12,
