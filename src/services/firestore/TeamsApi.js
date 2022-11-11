@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDocs, getDoc, query, limit, startAt, where, orderBy } from "firebase/firestore"
+import { collection, doc, addDoc, getDocs, getDoc, query, limit, startAt, where, orderBy, deleteDoc } from "firebase/firestore"
 import { db } from "./db"
 
 export class TeamsApi {
@@ -28,5 +28,18 @@ export class TeamsApi {
 
     static async store(info){
         return await addDoc(collection(db, "teams"), info)
+    }
+
+    static async get(id){
+        const data = await getDoc(doc(db, "teams", id))
+
+        return {
+            id: data.id,
+            ...data.data()
+        }
+    }
+
+    static async delete(id){
+        return await deleteDoc(doc(db, "teams", id))
     }
 }

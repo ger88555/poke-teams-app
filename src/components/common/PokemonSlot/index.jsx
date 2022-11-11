@@ -14,7 +14,7 @@ import { List } from "./List"
  * @param {Object} props
  * @param {Pokemon?} props.value Selected Pokemon
  */
-const Slot = ({ value = null, onChange = () => {}, disabled = false }) => {
+const Slot = ({ value = null, onChange = () => {}, disabled = false, small = false }) => {
     const [selecting, setSelecting] = useState(false)
     
     const pressHandler = useCallback(() => {
@@ -28,9 +28,9 @@ const Slot = ({ value = null, onChange = () => {}, disabled = false }) => {
 
     return (
         <>
-            <TouchableOpacity style={styles.container} onPress={pressHandler} activeOpacity={0.9} disabled={disabled}>
+            <TouchableOpacity style={[styles.container, small && styles.smallContainer]} onPress={pressHandler} activeOpacity={0.9} disabled={disabled}>
                 <Image uri={value?.id} />
-                <Label>{value?.name}</Label>
+                {small || <Label>{value?.name}</Label>}
             </TouchableOpacity>
             {selecting && (<List selected={value} onSelect={selectHandler} onClose={() => setSelecting(false)} />)}
         </>
@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
         width: "50%",
         aspectRatio: 1,
         flexDirection: "column",
+    },
+    smallContainer: {
+        width: "25%",
     },
 })
 

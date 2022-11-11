@@ -7566,6 +7566,11 @@ react-native-codegen@^0.69.2:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
+react-native-floating-action-menu@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/react-native-floating-action-menu/-/react-native-floating-action-menu-1.2.4.tgz#50adbc94024b10bb8454b75bb6f520eb369c3bd9"
+  integrity sha512-vPpADCD1bJzXl2S7baHdHBUm3fkkbSw996K64u5J+0SisNTP3hxDyPriP+uYhyf+xQMq61uCV066UO7mqs/cpw==
+
 react-native-gradle-plugin@^0.0.7:
   version "0.0.7"
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.7.tgz"

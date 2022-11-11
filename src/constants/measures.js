@@ -16,6 +16,12 @@ export const Measures = {
         insetX: 8,
         borderRadius: 8,
     },
+    floatingActionButton: {
+        insetRight: 16,
+        insetBottom: 16,
+        iconSize: 22,
+        height: 54,
+    },
     button: {
         insetY: 12,
         insetX: 16,

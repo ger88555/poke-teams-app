@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { AddTeamButton } from "../../common"
 import { styles } from "../styles"
 
-import { Teams, TeamCreate } from "../../views"
+import { Teams, TeamCreate, TeamDetails } from "../../views"
 
 const Stack = createNativeStackNavigator()
 
@@ -17,6 +17,7 @@ const Navigator = () => (
     }}>
         <Stack.Screen name="Teams" component={Teams} options={{ title: "My Teams", headerRight: (props) => <AddTeamButton {...props} /> }} />
         <Stack.Screen name="TeamCreate" component={TeamCreate} options={{ title: "New Team" }} />
+        <Stack.Screen name="TeamDetails" component={TeamDetails} options={{ title: "Team Info" }} />
     </Stack.Navigator>
 )
 

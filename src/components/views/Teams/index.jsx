@@ -6,7 +6,7 @@ import { Screen, TeamListItem } from "../../common"
 import { fetchTeams, fetchMoreTeams } from "../../../redux/reducers/teamsSlice"
 import { selectTeamsData, selectTeamsLoading, selectTeamsLoadingMore } from "../../../redux/reducers/teamsSlice"
 
-const Teams = () => {
+const Teams = ({ navigation }) => {
     const dispatch = useDispatch()
     const teams = useSelector(selectTeamsData)
     const loading = useSelector(selectTeamsLoading)
@@ -31,8 +31,8 @@ const Teams = () => {
 
     useFocusEffect(refresh)
 
-    const itemPressHandler = useCallback(() => {
-        // TODO: navigate to details
+    const itemPressHandler = useCallback((id) => {
+        navigation.navigate("TeamDetails", { id })
     }, [])
 
     const renderItem = useCallback(({ item, index }) => (
