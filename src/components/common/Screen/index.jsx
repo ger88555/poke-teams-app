@@ -25,9 +25,6 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         flex: 1,
-        alignItems: "center",
-        flexDirection: "column",
-        justifyContent: "flex-start",
         paddingTop: Measures.screen.insetTop,
         paddingHorizontal: Measures.screen.insetX,
         backgroundColor: Colors.negative,
