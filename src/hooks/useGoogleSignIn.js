@@ -4,6 +4,7 @@ import * as Google from "expo-auth-session/providers/google"
 import { getAuth, GoogleAuthProvider, signInWithCredential } from "firebase/auth"
 import { login, setError } from "../redux/reducers/authSlice"
 import { Firebase } from "../constants"
+import { UsersApi } from "../services/firestore"
 
 export const useGoogleSignIn = () => {
     const dispatch = useDispatch()
@@ -20,16 +21,22 @@ export const useGoogleSignIn = () => {
 
             // sign in to Firebase with the Google credentials
             signInWithCredential(getAuth(), credential)
-                .then(({ user, providerId }) => {
+                .then(async ({ user, providerId }) => {
                     const { email, photoURL, displayName } = user
 
+                    // get the database identifier for this user
+                    const dbUser = { email, displayName, providerId }
+                    const id = await UsersApi.getOrStore(dbUser)
+
                     dispatch(login({
-                        user: { email, photoURL, displayName },
+                        user: { id, email, photoURL, displayName },
                         providerId,
                         token: id_token,
                     }))
                 })
-                .catch((e) => dispatch(setError(e.message)))
+                .catch((e) => {
+                    dispatch(setError(e.message))
+                })
         }
     }, [response])
 

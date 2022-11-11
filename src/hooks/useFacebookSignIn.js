@@ -5,6 +5,7 @@ import * as Facebook from "expo-auth-session/providers/facebook"
 import { getAuth, FacebookAuthProvider, signInWithCredential } from "firebase/auth"
 import { login, setError } from "../redux/reducers/authSlice"
 import { Firebase } from "../constants"
+import { UsersApi } from "../services/firestore"
 
 export const useFacebookSignIn = () => {
     const dispatch = useDispatch()
@@ -23,10 +24,14 @@ export const useFacebookSignIn = () => {
 
             // sign in to Firebase with the FB credentials
             signInWithCredential(getAuth(), credential)
-                .then(({ user, providerId }) => {
+                .then(async ({ user, providerId }) => {
                     const { email, photoURL, displayName } = user
+
+                    // get the database identifier for this user
+                    const id = await UsersApi.getOrStore({ email, displayName, providerId })
+
                     dispatch(login({
-                        user: { email, photoURL, displayName },
+                        user: { id, email, photoURL, displayName },
                         providerId,
                         token: access_token,
                     }))
