@@ -5,8 +5,13 @@ import { Colors, Measures } from "../../../constants"
 export const Button = ({ title = "", onPress = () => {}, disabled = false }) => {
 
     return (
-        <TouchableOpacity style={styles.container} onPress={onPress} disabled={disabled} activeOpacity={0.9}>
-            <Text style={styles.text} adjustFontSizeToFit>{title}</Text>
+        <TouchableOpacity 
+            onPress={onPress} 
+            disabled={disabled} 
+            activeOpacity={0.9}
+            style={[styles.container, disabled && styles.disabledContainer]} 
+        >
+            <Text style={[styles.text, disabled && styles.disabledText]} adjustFontSizeToFit>{title}</Text>
         </TouchableOpacity>
     )
 }
@@ -20,11 +25,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: Measures.button.insetX,
         backgroundColor: Colors.lightSecondary,
     },
+    disabledContainer: {
+        backgroundColor: Colors.secondary,
+    },
     text: {
         textAlign: "center",
         fontSize: 18,
         fontWeight: "bold",
         textTransform: "uppercase",
         color: Colors.accent,
+    },
+    disabledText: {
+        color: Colors.lightAccent,
     }
 })

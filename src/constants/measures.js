@@ -9,6 +9,13 @@ export const Measures = {
     tabBar: {
         height: 60,
     },
+    modal: {
+        offsetX: 18,
+        offsetY: 24,
+        insetY: 8,
+        insetX: 8,
+        borderRadius: 8,
+    },
     button: {
         insetY: 12,
         insetX: 16,
@@ -20,6 +27,11 @@ export const Measures = {
     card: {
         insetY: 12,
         insetX: 12,
+    },
+    input: {
+        insetY: 12,
+        insetX: 16,
+        offsetBottom: 8,
     },
     separator: 8,
 }

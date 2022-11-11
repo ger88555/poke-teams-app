@@ -6,6 +6,7 @@ import { reducers } from "./reducers"
 const persistConfig = {
     key: "root",
     storage: AsyncStorage,
+    whitelist: ["auth"]
 }
 
 export const store = configureStore({
