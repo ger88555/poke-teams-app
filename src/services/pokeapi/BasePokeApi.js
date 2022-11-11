@@ -1,7 +1,7 @@
-import { HTTPCodes } from "../constants"
+import { HTTPCodes } from "../../constants"
 import { ApiException, NotFoundException, AuthorizationException, AuthenticationException, ValidationException, InternalServerErrorException } from "./exceptions"
 
-export class Api {
+export class BasePokeApi {
     /**
      * Perform an API call, and get the response.
      * 
@@ -16,7 +16,7 @@ export class Api {
      * @throws {InternalServerErrorException}
      * @throws {ApiException}
      */
-    static async perform(request, messages = {}){
+    static async perform (request, messages = {}) {
         try{
             const result = await request()
 

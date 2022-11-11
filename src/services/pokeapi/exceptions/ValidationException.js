@@ -1,4 +1,4 @@
-import { HTTPCodes } from "../../constants"
+import { HTTPCodes } from "../../../constants"
 import { ApiException } from "./ApiException"
 
 export class ValidationException extends ApiException{

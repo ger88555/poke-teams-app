@@ -1,4 +1,4 @@
-import { DEFAULT_ERROR } from "../../constants/api"
+import { DEFAULT_ERROR } from "../../../constants/api"
 
 export class ApiException extends Error {
     constructor(code = 0, message = "", ...params){
