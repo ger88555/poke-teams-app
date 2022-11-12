@@ -28,12 +28,12 @@ export const PokemonsPicker = ({ name = "pokemons", disabled = false, min = 3, m
     const initialRegion = defaultValues?.region_id
 
     const validate = useCallback((v) => {
-        const picked = v.filter(i => i.id != null).length
+        const picked = v.filter(i => i?.id != null).length
 
         return (picked >= min) || Validation.min("Pokemons", min)
     }, [min])
 
-    const { fields, append, update } = useFieldArray({ control, name, rules: { validate } })
+    const { fields, update } = useFieldArray({ control, name, rules: { validate }, shouldUnregister: true })
 
     /**
      * Sync pokemons list with selected region
@@ -44,7 +44,7 @@ export const PokemonsPicker = ({ name = "pokemons", disabled = false, min = 3, m
             dispatch(fetchPokemons())
         }
 
-        if (initialRegion != selectedRegion) {
+        if (!selectedRegion || initialRegion != selectedRegion) {
             clearSlots()
         }
     }, [initialRegion, selectedRegion])
@@ -53,26 +53,20 @@ export const PokemonsPicker = ({ name = "pokemons", disabled = false, min = 3, m
      * Sync slot count with `max`
      */
     useEffect(() => {
-        if (fields.length === max) {
+        if (fields.length && fields.length === max) {
             return
         }
 
         const emptySlots = max - fields.length
-        
-        for (let i = 0; i < emptySlots; i++) {
-            append(DEFAULT_SLOT, { shouldFocus: false })
-        }
+
+        clearSlots(fields.length-1 + emptySlots)
     }, [max])
 
-    const clearSlots = useCallback(() => {
-        for (let i = 0; i < max; i++) {
+    const clearSlots = useCallback((start = 0) => {
+        for (let i = start; i < max; i++) {
             update(i, DEFAULT_SLOT)
         }
     }, [max])
-
-    if (fields.length != max) {
-        return <ScrollView style={styles.container} />
-    }
 
     return (
         <ScrollView contentContainerStyle={styles.container}>

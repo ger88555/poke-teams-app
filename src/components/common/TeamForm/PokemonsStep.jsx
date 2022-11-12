@@ -27,7 +27,7 @@ export const PokemonsStep = () => {
 
             delete data.id
             data.user = userId
-            data.pokemons = data.pokemons.filter(p => p.id != null)
+            data.pokemons = data.pokemons.filter(p => p?.id != null)
             data.region = regions.results.find(r => r.id === data.region_id)
             delete data.region_id
             
