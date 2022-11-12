@@ -6,6 +6,7 @@ export default {
     expo: {
         name: "poke-teams-app",
         slug: "poke-teams-app",
+        scheme: "pokeapp",
         version: "1.0.0",
         orientation: "portrait",
         icon: "./src/assets/images/icon.png",
