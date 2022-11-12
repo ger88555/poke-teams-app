@@ -18,9 +18,10 @@ const DEFAULT_SLOT = { id: null, name: null }
 /**
  * @param {Object} props
  * @param {String} props.name Form field name (default: "pokemons")
- * @param {Pokemon[]} props.value Selected Pokemons
+ * @param {Number} props.min Minimum required Pokemons
+ * @param {Number} props.max Maximum Pomemons
  */
-export const PokemonsPicker = ({ name = "pokemons", disabled = false, min = 3, max = 6 }) => {
+export const PokemonsPicker = ({ name = "pokemons", min = 3, max = 6 }) => {
     const dispatch = useDispatch()
     const selectedRegion = useSelector(selectPokemonsRegionId)
 
@@ -78,7 +79,7 @@ export const PokemonsPicker = ({ name = "pokemons", disabled = false, min = 3, m
                             name={name}
                             value={value}
                             onChange={onChange}
-                            disabled={disabled}
+                            disabled={!selectedRegion}
                         />
                     )}
                     name={`${name}.${i}`}
