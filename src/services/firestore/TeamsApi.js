@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDocs, getDoc, query, limit, startAt, where, orderBy, deleteDoc, setDoc } from "firebase/firestore"
+import { collection, doc, addDoc, getDocs, getDoc, query, limit, startAt, where, orderBy, deleteDoc, setDoc, FieldPath, getCountFromServer } from "firebase/firestore"
 import { db } from "./db"
 
 export class TeamsApi {
@@ -37,6 +37,25 @@ export class TeamsApi {
             id: data.id,
             ...data.data()
         }
+    }
+
+    /**
+     * @param {string} userId The teams' owner
+     * @param {string[]} regions Region identifiers
+     * @returns {Promise<Object.<string, Number>>} Team count per region identifier
+     */
+    static async getTeamsPerRegion(userId, regions = []){
+        const result = {}
+        const teamsRef = collection(db, "teams")
+        const regionIdField = new FieldPath("region", "id")
+
+        for (const id of regions) {
+            const q = query(teamsRef, where("user", "==", userId), where(regionIdField, "==", id))
+
+            result[id] = (await getCountFromServer(q)).data().count
+        }
+        
+        return result
     }
 
     static async update(id, info){

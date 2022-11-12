@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { RegionsApi } from "../../services/pokeapi"
+import { TeamsApi } from "../../services/firestore"
 
 const initialState = {
     data: {
@@ -19,12 +20,14 @@ const initialState = {
 export const fetchRegions = createAsyncThunk(
     "regions/fetch",
     async (_, { rejectWithValue, getState }) => {
+        const userId = getState().auth.user.id
         const { perPage } = getState().regions.pagination
 
         try {
             const data = await RegionsApi.list({ limit: perPage })
-            
-            data.results = data.results.map(parseRegion)
+            const usage = await TeamsApi.getTeamsPerRegion(userId, data.results.map(r => r.url))
+
+            data.results = parseRegions(data.results, usage)
 
             return data
         } catch (error) {
@@ -36,6 +39,7 @@ export const fetchRegions = createAsyncThunk(
 export const fetchMoreRegions = createAsyncThunk(
     "regions/fetch/more",
     async (_, { rejectWithValue, getState }) => {
+        const userId = getState().auth.user.id
         const { pagination: { page, perPage }, data: { next } } = getState().regions
 
         if (!next) {
@@ -44,8 +48,9 @@ export const fetchMoreRegions = createAsyncThunk(
 
         try {
             const data = await RegionsApi.list({ limit: perPage, offset: perPage * page })
+            const usage = await TeamsApi.getTeamsPerRegion(userId, data.results.map(r => r.url))
             
-            data.results = data.results.map(parseRegion)
+            data.results = parseRegions(data.results, usage)
 
             return data
         } catch (error) {
@@ -54,10 +59,13 @@ export const fetchMoreRegions = createAsyncThunk(
     }
 )
 
-const parseRegion = (region) => ({
-    id: region.url,
-    name: region.name,
-})
+const parseRegions = (regions, usage) => {
+    return regions.map(r => ({
+        id: r.url,
+        name: r.name,
+        usage: usage[r.url] || 0
+    }))
+}
 
 export const regionsSlice = createSlice({
     name: "regions",

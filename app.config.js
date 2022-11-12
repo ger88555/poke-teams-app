@@ -37,6 +37,7 @@ export default {
         facebookAppId: process.env.FIREBASE_AUTH_FACEBOOK_APP_ID,
         extra: {
             apiURL: process.env.API_URL,
+            teamsPerRegion: process.env.TEAMS_PER_REGION,
             firebase: {
                 googleClientId: process.env.FIREBASE_AUTH_GOOGLE_CLIENT_ID,
                 config: {

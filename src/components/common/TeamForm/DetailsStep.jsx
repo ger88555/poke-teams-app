@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react"
+import React, { useCallback, useEffect, useMemo } from "react"
 import { StyleSheet, ScrollView } from "react-native"
 import { Controller, useFormContext } from "react-hook-form"
 import { Button } from "../Button"
@@ -7,12 +7,13 @@ import { FormError } from "../FormError"
 import { InputField } from "../InputField"
 import { fetchRegions, selectRegionsData } from "../../../redux/reducers/regionsSlice"
 import { useDispatch, useSelector } from "react-redux"
-import { Validation } from "../../../constants"
+import { Regions, Validation } from "../../../constants"
 
 export const DetailsStep = ({ jumpTo }) => {
     const dispatch = useDispatch()
     const regions = useSelector(selectRegionsData)
-    const { control, formState: { errors } } = useFormContext()
+    const { control, formState: { errors, defaultValues } } = useFormContext()
+    const initialRegion = defaultValues?.region_id
 
     useEffect(() => {
         if (!regions.count) {
@@ -25,6 +26,23 @@ export const DetailsStep = ({ jumpTo }) => {
             jumpTo("details")
         }
     }, [errors?.name?.message, errors?.region_id?.message])
+
+    const displayRegions = useMemo(() => {
+        return regions.results.map(r => {
+            const display = Object.assign({}, r)
+
+            // Don't count usage by the team under edition
+            if (r.id == initialRegion && r.usage > 0) display.usage--
+
+            // Discard filled regions
+            if (Regions.maxTeams == display.usage) return undefined
+
+            // Display region usage
+            display.name += ` (${Regions.maxTeams - display.usage} team(s) left)`
+
+            return display
+        }).filter(v => v)
+    }, [regions.count, initialRegion])
     
     const nextPressedHandler = useCallback(() => {
         jumpTo("pokemons")
@@ -50,7 +68,7 @@ export const DetailsStep = ({ jumpTo }) => {
                         required: Validation.required("region"),
                     }}
                     render={({ field: { onChange, onBlur, value } }) => (
-                        <InputField label="region" onChange={onChange} onBlur={onBlur} value={value} items={regions.results} />
+                        <InputField label="region" onChange={onChange} onBlur={onBlur} value={value} items={displayRegions} />
                     )}
                     name="region_id"
                 />
