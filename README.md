@@ -50,6 +50,15 @@ Desde la terminal en donde corre el servidor de Metro, presiona `a` para lanzar 
 
 El servidor se encargará de instalar la aplicación de Expo Go en tu simulador o dispositivo. Luego de eso, lanzará `poke-teams-app`.
 
+# Características
+
+- Autenticación con Google y Facebook.
+- CRUD de los equipos del usuario.
+- Máximo de equipos por región (configurable mediante `TEAMS_PER_REGION` en el archivo `.env`).
+- Mínimo 3 y máximo 6 Pokemones por equipo.
+- Sincronización con Firebase.
+- Fuentes personalizadas.
+
 # Contribuciones
 
 ## Mensajes de commits
