@@ -1,6 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
-import { selectIsAuthenticated } from "../../redux/reducers/authSlice"
+import { selectIsAuthenticated } from "../../redux/features/authSlice"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
 import { AppNavigator } from "./App"

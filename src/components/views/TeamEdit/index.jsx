@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { StyleSheet } from "react-native"
 import { useDispatch } from "react-redux"
-import { fetchTeam } from "../../../redux/reducers/teamDetailsSlice"
+import { fetchTeam } from "../../../redux/features/teamDetailsSlice"
 import { Screen, TeamForm } from "../../common"
 
 export const TeamEdit = ({ route }) => {

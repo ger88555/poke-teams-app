@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import * as Google from "expo-auth-session/providers/google"
 import { getAuth, GoogleAuthProvider, signInWithCredential } from "firebase/auth"
-import { login, setError } from "../redux/reducers/authSlice"
+import { login, setError } from "../redux/features/authSlice"
 import { Firebase } from "../constants"
 import { UsersApi } from "../services/firestore"
 

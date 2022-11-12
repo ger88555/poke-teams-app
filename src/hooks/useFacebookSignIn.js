@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { makeRedirectUri, ResponseType } from "expo-auth-session"
 import * as Facebook from "expo-auth-session/providers/facebook"
 import { getAuth, FacebookAuthProvider, signInWithCredential } from "firebase/auth"
-import { login, setError } from "../redux/reducers/authSlice"
+import { login, setError } from "../redux/features/authSlice"
 import { Firebase } from "../constants"
 import { UsersApi } from "../services/firestore"
 

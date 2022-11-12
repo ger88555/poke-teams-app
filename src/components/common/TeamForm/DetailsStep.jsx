@@ -5,10 +5,10 @@ import { Button } from "../Button"
 import { Separator } from "../Separator"
 import { FormError } from "../FormError"
 import { InputField } from "../InputField"
-import { fetchRegions, selectRegionsData, selectRegionsLoading } from "../../../redux/reducers/regionsSlice"
+import { fetchRegions, selectRegionsData, selectRegionsLoading } from "../../../redux/features/regionsSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { Regions, Validation } from "../../../constants"
-import { setPokemonsRegion } from "../../../redux/reducers/pokemonsSlice"
+import { setPokemonsRegion } from "../../../redux/features/pokemonsSlice"
 
 export const DetailsStep = ({ jumpTo }) => {
     const dispatch = useDispatch()

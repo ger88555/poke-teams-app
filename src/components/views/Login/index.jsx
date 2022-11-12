@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 import { useSelector } from "react-redux"
 import { Button, FormError, Screen, Separator } from "../../common"
 import { useFacebookSignIn, useGoogleSignIn } from "../../../hooks"
-import { selectError } from "../../../redux/reducers/authSlice"
+import { selectError } from "../../../redux/features/authSlice"
 
 export const Login = () => {
     const error = useSelector(selectError)

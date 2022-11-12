@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import { useDispatch } from "react-redux"
-import { logout } from "../../../redux/reducers/authSlice"
+import { logout } from "../../../redux/features/authSlice"
 import { Button, ProfileCard, Screen, Separator } from "../../common"
 
 export const Profile = () => {

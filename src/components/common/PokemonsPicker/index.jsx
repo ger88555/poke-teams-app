@@ -4,7 +4,7 @@ import { PokemonSlot } from "../PokemonSlot"
 import { Controller, useFieldArray, useFormContext } from "react-hook-form"
 import { Validation } from "../../../constants"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchPokemons, selectPokemonsRegionId } from "../../../redux/reducers/pokemonsSlice"
+import { fetchPokemons, selectPokemonsRegionId } from "../../../redux/features/pokemonsSlice"
 
 /**
  * @typedef Pokemon

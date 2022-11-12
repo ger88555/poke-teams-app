@@ -2,8 +2,8 @@ import React, { useCallback } from "react"
 import { connect, useDispatch, useSelector } from "react-redux"
 import { useFocusEffect } from "@react-navigation/native"
 import { List, Screen, TeamListItem } from "../../common"
-import { fetchTeams, fetchMoreTeams } from "../../../redux/reducers/teamsSlice"
-import { selectTeamsData, selectTeamsLoading, selectTeamsLoadingMore } from "../../../redux/reducers/teamsSlice"
+import { fetchTeams, fetchMoreTeams } from "../../../redux/features/teamsSlice"
+import { selectTeamsData, selectTeamsLoading, selectTeamsLoadingMore } from "../../../redux/features/teamsSlice"
 
 const Teams = ({ navigation }) => {
     const dispatch = useDispatch()

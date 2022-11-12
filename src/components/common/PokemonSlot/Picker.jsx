@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Colors } from "../../../constants"
 import { Modal } from "../Modal"
 import { List as BaseList } from "../List"
-import { fetchMorePokemons, fetchPokemons, selectPokemonsData, selectPokemonsLoading, selectPokemonsLoadingMore } from "../../../redux/reducers/pokemonsSlice"
+import { fetchMorePokemons, fetchPokemons, selectPokemonsData, selectPokemonsLoading, selectPokemonsLoadingMore } from "../../../redux/features/pokemonsSlice"
 import { PickerItem } from "./PickerItem"
 
 /**

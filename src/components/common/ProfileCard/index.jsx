@@ -2,7 +2,7 @@ import React from "react"
 import { StyleSheet, View } from "react-native"
 import { useSelector } from "react-redux"
 import { Colors, Measures } from "../../../constants"
-import { selectUser } from "../../../redux/reducers/authSlice"
+import { selectUser } from "../../../redux/features/authSlice"
 import { Name } from "./Name"
 import { Photo } from "./Photo"
 

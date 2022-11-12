@@ -2,7 +2,7 @@ import React, { useCallback } from "react"
 import { StyleSheet } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { useFocusEffect } from "@react-navigation/native"
-import { fetchTeam, selectTeamLoading } from "../../../redux/reducers/teamDetailsSlice"
+import { fetchTeam, selectTeamLoading } from "../../../redux/features/teamDetailsSlice"
 import { LoadingIndicator, Screen, TeamCard, TeamOptionsButton } from "../../common"
 
 export const TeamDetails = ({ route }) => {

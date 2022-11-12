@@ -7,7 +7,7 @@ import { PokemonsStep } from "./PokemonsStep"
 import { Measures } from "../../../constants"
 import { TabBar } from "./TabBar"
 import { useSelector } from "react-redux"
-import { selectTeamData } from "../../../redux/reducers/teamDetailsSlice"
+import { selectTeamData } from "../../../redux/features/teamDetailsSlice"
 import { NavigationRouteContext } from "@react-navigation/native"
 
 const renderScene = SceneMap({

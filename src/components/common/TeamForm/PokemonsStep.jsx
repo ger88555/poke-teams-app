@@ -8,8 +8,8 @@ import { FormError } from "../FormError"
 import { PokemonsPicker } from "../PokemonsPicker"
 import { TeamsApi } from "../../../services/firestore"
 import { NavigationContext, NavigationRouteContext } from "@react-navigation/native"
-import { selectUser } from "../../../redux/reducers/authSlice"
-import { selectRegionsData } from "../../../redux/reducers/regionsSlice"
+import { selectUser } from "../../../redux/features/authSlice"
+import { selectRegionsData } from "../../../redux/features/regionsSlice"
 
 export const PokemonsStep = () => {
     const navigation = useContext(NavigationContext)
