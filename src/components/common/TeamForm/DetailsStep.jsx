@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from "react"
 import { StyleSheet, ScrollView } from "react-native"
-import { Controller, useFormContext } from "react-hook-form"
+import { Controller, useFormContext, useWatch } from "react-hook-form"
 import { Button } from "../Button"
 import { Separator } from "../Separator"
 import { FormError } from "../FormError"
@@ -8,11 +8,13 @@ import { InputField } from "../InputField"
 import { fetchRegions, selectRegionsData } from "../../../redux/reducers/regionsSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { Regions, Validation } from "../../../constants"
+import { setPokemonsRegion } from "../../../redux/reducers/pokemonsSlice"
 
 export const DetailsStep = ({ jumpTo }) => {
     const dispatch = useDispatch()
     const regions = useSelector(selectRegionsData)
     const { control, formState: { errors, defaultValues } } = useFormContext()
+    const region_id = useWatch({ name: "region_id", control })
     const initialRegion = defaultValues?.region_id
 
     useEffect(() => {
@@ -43,6 +45,16 @@ export const DetailsStep = ({ jumpTo }) => {
             return display
         }).filter(v => v)
     }, [regions.count, initialRegion])
+
+    /**
+     * Sync Pokemons region filter
+     * with selected team region
+     */
+    useEffect(() => {
+        if (region_id) {
+            dispatch(setPokemonsRegion(region_id))
+        }
+    }, [region_id])
     
     const nextPressedHandler = useCallback(() => {
         jumpTo("pokemons")

@@ -1,10 +1,9 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from "react"
+import React, { useCallback, useContext, useMemo, useState } from "react"
 import { StyleSheet, View } from "react-native"
+import { useSelector } from "react-redux"
 import { useFormContext } from "react-hook-form"
 import { Button } from "../Button"
 import { Separator } from "../Separator"
-import { useDispatch, useSelector } from "react-redux"
-import { fetchPokemons, selectPokemonsData } from "../../../redux/reducers/pokemonsSlice"
 import { FormError } from "../FormError"
 import { PokemonsPicker } from "../PokemonsPicker"
 import { TeamsApi } from "../../../services/firestore"
@@ -16,18 +15,11 @@ export const PokemonsStep = () => {
     const navigation = useContext(NavigationContext)
     const teamId = useContext(NavigationRouteContext).params?.id || null
     const userId = useSelector(selectUser).id
-    const dispatch = useDispatch()
-    const pokemons = useSelector(selectPokemonsData)
     const regions = useSelector(selectRegionsData)
     const [submitting, setSubmitting] = useState(false)
     const { handleSubmit, formState: { errors } } = useFormContext()
     const disableSubmit = useMemo(() => !!Object.keys(errors).length || submitting, [errors, submitting])
 
-    useEffect(() => {
-        if (!pokemons.count) {
-            dispatch(fetchPokemons())
-        }
-    }, [])
 
     const onSuccess = useCallback(async (data) => {
         try {

@@ -1,12 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { Regions } from "../../constants"
 import { PokemonsApi } from "../../services/pokeapi"
 
 const initialState = {
     data: {
+        region: {
+            id: null,
+            startId: null,
+            endId: null,
+        },
         next: null,
         previous: null,
         count: null,
-        results: []
+        results: [],
     },
     pagination: {
         page: 0,
@@ -20,10 +26,18 @@ const initialState = {
 export const fetchPokemons = createAsyncThunk(
     "pokemons/fetch",
     async (_, { rejectWithValue, getState }) => {
-        const { perPage } = getState().pokemons.pagination
+        const { pagination: { perPage }, data: { region } } = getState().pokemons
 
         try {
-            const data = await PokemonsApi.list({ limit: perPage })
+            // Paginate within the boundaries of the region
+            const offset = region.startId-1
+            const limit = Math.min(perPage, region.endId - offset)
+
+            if (!limit) {
+                return
+            }
+
+            const data = await PokemonsApi.list({ limit, offset })
             
             data.results = data.results.map(parsePokemon)
 
@@ -37,14 +51,19 @@ export const fetchPokemons = createAsyncThunk(
 export const fetchMorePokemons = createAsyncThunk(
     "pokemons/fetch/more",
     async (_, { rejectWithValue, getState }) => {
-        const { pagination: { page, perPage }, data: { next } } = getState().pokemons
-
-        if (!next) {
-            return []
-        }
+        const { pagination: { page, perPage }, data: { region } } = getState().pokemons
 
         try {
-            const data = await PokemonsApi.list({ limit: perPage, offset: perPage * page })
+            // Paginate within the boundaries of the region
+            const offset = region.startId-1 + (perPage * page)
+            const regionRemaining = Math.max(region.endId - offset, 0)
+            const limit = Math.min(regionRemaining, perPage)
+
+            if (!limit) {
+                return
+            }
+            
+            const data = await PokemonsApi.list({ limit, offset })
             
             data.results = data.results.map(parsePokemon)
 
@@ -58,6 +77,15 @@ export const fetchMorePokemons = createAsyncThunk(
 export const pokemonsSlice = createSlice({
     name: "pokemons",
     initialState,
+    reducers: {
+        setPokemonsRegion: (state, { payload = "" }) => {
+            const region = Regions.domains[payload] || initialState.data.region
+
+            state.data.region.startId = region.startId
+            state.data.region.endId = region.endId
+            state.data.region.id = payload
+        },
+    },
     extraReducers: ({ addCase }) => {
         addCase(fetchPokemons.pending, (state) => {
             state.loading = true
@@ -101,13 +129,12 @@ export const pokemonsSlice = createSlice({
             state.loadingMore = false
             state.error = null
             state.data.next = payload.next
-            state.data.results = [
-                ...state.data.results,
-                ...payload.results
-            ]
+            state.data.results.push(...payload.results)
         })
     }
 })
+
+export const { setPokemonsRegion } = pokemonsSlice.actions
 
 const parsePokemon = (pokemon) => ({
     id: pokemon.url,
@@ -118,3 +145,4 @@ export const selectPokemonsData = state => state.pokemons.data
 export const selectPokemonsError = state => state.pokemons.error
 export const selectPokemonsLoading = state => state.pokemons.loading
 export const selectPokemonsLoadingMore = state => state.pokemons.loadingMore
+export const selectPokemonsRegionId = state => state.pokemons.data.region.id

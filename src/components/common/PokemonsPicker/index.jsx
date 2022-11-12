@@ -3,6 +3,8 @@ import { StyleSheet, ScrollView } from "react-native"
 import { PokemonSlot } from "../PokemonSlot"
 import { Controller, useFieldArray, useFormContext } from "react-hook-form"
 import { Validation } from "../../../constants"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchPokemons, selectPokemonsRegionId } from "../../../redux/reducers/pokemonsSlice"
 
 /**
  * @typedef Pokemon
@@ -19,14 +21,33 @@ const DEFAULT_SLOT = { id: null, name: null }
  * @param {Pokemon[]} props.value Selected Pokemons
  */
 export const PokemonsPicker = ({ name = "pokemons", disabled = false, min = 3, max = 6 }) => {
-    const { control } = useFormContext()
+    const dispatch = useDispatch()
+    const selectedRegion = useSelector(selectPokemonsRegionId)
+
+    const { control, formState: { defaultValues } } = useFormContext()
+    const initialRegion = defaultValues?.region_id
 
     const validate = useCallback((v) => {
         const picked = v.filter(i => i.id != null).length
+
         return (picked >= min) || Validation.min("Pokemons", min)
     }, [min])
 
-    const { fields, append } = useFieldArray({ control, name, rules: { validate } })
+    const { fields, append, update } = useFieldArray({ control, name, rules: { validate } })
+
+    /**
+     * Sync pokemons list with selected region
+     * and clear slots on region mismatch
+     */
+    useEffect(() => {
+        if (selectedRegion) {
+            dispatch(fetchPokemons())
+        }
+
+        if (initialRegion != selectedRegion) {
+            clearSlots()
+        }
+    }, [initialRegion, selectedRegion])
 
     /**
      * Sync slot count with `max`
@@ -40,6 +61,12 @@ export const PokemonsPicker = ({ name = "pokemons", disabled = false, min = 3, m
         
         for (let i = 0; i < emptySlots; i++) {
             append(DEFAULT_SLOT, { shouldFocus: false })
+        }
+    }, [max])
+
+    const clearSlots = useCallback(() => {
+        for (let i = 0; i < max; i++) {
+            update(i, DEFAULT_SLOT)
         }
     }, [max])
 
