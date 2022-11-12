@@ -10,8 +10,8 @@ export const Measures = {
         height: 60,
     },
     modal: {
-        offsetX: 18,
-        offsetY: 24,
+        offsetX: 24,
+        offsetY: 60,
         insetY: 8,
         insetX: 8,
         borderRadius: 8,
