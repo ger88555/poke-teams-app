@@ -6,6 +6,7 @@ import { MainNavigator } from "../../navigators"
 import * as SplashScreen from "expo-splash-screen"
 import { NavigationTheme } from "../../../constants"
 import { initAxios, initFirebase } from "../../../utils"
+import * as Font from "expo-font"
 
 SplashScreen.preventAutoHideAsync()
 
@@ -16,8 +17,15 @@ export const Root = () => {
         initAxios()
         initFirebase()
 
-        setIsReady(true)
+        loadFonts().finally(() => setIsReady(true))
     }, [])
+
+    const loadFonts = useCallback(async () => {
+        return await Font.loadAsync({
+            "Minecraft": require("../../../assets/fonts/Minecraft.ttf"),
+            "Pusab": require("../../../assets/fonts/Pusab.ttf"),
+        })
+    })
 
     const hideSplashScreen = useCallback(() => {
         // Recommended delay used by the abandoned "expo-app-loading" package

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     text: {
         textAlign: "center",
         fontSize: 24,
-        fontWeight: "bold",
+        fontFamily: "Minecraft",
         color: Colors.accent,
     }
 })

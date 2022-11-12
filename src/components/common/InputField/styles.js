@@ -12,6 +12,7 @@ export const inputStyles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
+        fontFamily: "Minecraft",
         color: Colors.accent,
     },
 })

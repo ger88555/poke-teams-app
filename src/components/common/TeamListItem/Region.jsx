@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 12,
+        fontFamily: "Minecraft",
         color: Colors.lightAccent,
     },
 })

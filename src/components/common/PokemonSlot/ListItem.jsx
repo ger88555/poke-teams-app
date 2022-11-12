@@ -18,13 +18,14 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         flexDirection: "row",
-        paddingVertical: 4,
+        paddingVertical: 8,
         paddingHorizontal: 4,
-        borderBottomWidth: 1,
+        borderBottomWidth: 2 * StyleSheet.hairlineWidth,
         borderColor: Colors.lightAccent,
     },
     text: {
         fontSize: 16,
+        fontFamily: "Minecraft",
         color: Colors.accent,
     },
     selectedText: {

@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.lightSecondary,
     },
     label: {
-        fontWeight: "bold"
+        fontFamily: "Minecraft",
     }
 })

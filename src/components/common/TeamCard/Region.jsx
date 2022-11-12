@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     name: {
-        fontSize: 16,
+        fontSize: 18,
+        fontFamily: "Minecraft",
         color: Colors.lightAccent,
     },
 })

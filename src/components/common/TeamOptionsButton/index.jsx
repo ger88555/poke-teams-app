@@ -73,6 +73,8 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.blackTransparent,
     },
     label: {
+        fontSize: 18,
+        fontFamily: "Minecraft",
         color: Colors.lightSecondary,
     },
 })

@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
         paddingBottom: 4,
     },
     name: {
-        fontSize: 16,
-        fontWeight: "bold",
+        fontSize: 12,
+        fontFamily: "Pusab",
         color: Colors.accent,
     },
 })

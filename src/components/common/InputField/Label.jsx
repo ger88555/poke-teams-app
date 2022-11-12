@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
         flexShrink: 1,
         width: "100%",
         flexDirection: "row",
-        marginBottom: 2,
+        marginBottom: 4,
     },
     text: {
         fontSize: 14,
-        fontWeight: "bold",
+        fontFamily: "Minecraft",
         textTransform: "uppercase",
         color: Colors.secondary,
     }

@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     },
     text: {
         textAlign: "center",
-        fontSize: 18,
-        fontWeight: "bold",
+        fontFamily: "Pusab",
+        fontSize: 14,
         textTransform: "uppercase",
         color: Colors.accent,
     },

@@ -23,10 +23,11 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         backgroundColor: Colors.blackTransparent,
+        paddingVertical: 2,
     },
     text: {
         fontSize: 14,
-        fontWeight: "bold",
+        fontFamily: "Minecraft",
         textTransform: "capitalize",
         textAlign: "center",
         color: Colors.secondary,

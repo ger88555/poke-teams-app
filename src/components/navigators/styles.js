@@ -6,7 +6,8 @@ export const styles = StyleSheet.create({
         backgroundColor: Colors.dominant,
     },
     headerTitle: {
-        fontSize: 24,
+        fontSize: 28,
+        fontFamily: "Minecraft",
         color: Colors.secondary,
     },
     tabBar: {
@@ -14,5 +15,10 @@ export const styles = StyleSheet.create({
         borderTopWidth: 8,
         borderTopColor: Colors.accent,
         backgroundColor: Colors.secondary,
+    },
+    tabBarLabel: {
+        fontSize: 14,
+        fontFamily: "Minecraft",
+        paddingBottom: 2,
     }
 })

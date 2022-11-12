@@ -5,8 +5,8 @@ import { inputStyles } from "./styles"
 export const PickerInput = ({ value = "", items = [], onChange = () => {}, onBlur = () => {}, disabled = false, loading = false }) => {
     const ItemComponents = useMemo(() => (
         loading 
-            ? <Picker.Item value={value} label="LOADING..." />
-            : items.map((i) => <Picker.Item key={i.id} value={i.id} label={i.name} />)
+            ? <Picker.Item value={value} label="LOADING..." style={inputStyles.text} />
+            : items.map((i) => <Picker.Item key={i.id} value={i.id} label={i.name} style={inputStyles.text} />)
     ), [items.length, loading])
 
     return (
@@ -18,8 +18,9 @@ export const PickerInput = ({ value = "", items = [], onChange = () => {}, onBlu
             selectedValue={value}
             onValueChange={onChange}
             disabled={disabled}
+            itemStyle={inputStyles.text}
         >
-            <Picker.Item label="SELECT" color="gray" />
+            <Picker.Item label="SELECT" color="gray" style={inputStyles.text} />
             {ItemComponents}
         </Picker>
     )

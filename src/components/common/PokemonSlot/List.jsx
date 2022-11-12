@@ -59,12 +59,12 @@ const styles = StyleSheet.create({
         flexShrink: 1,
         width: "100%",
         flexDirection: "row",
-        marginBottom: 2,
+        marginBottom: 4,
         backgroundColor: Colors.dominant,
     },
     headerText: {
         fontSize: 14,
-        fontWeight: "bold",
+        fontFamily: "Pusab",
         textTransform: "uppercase",
         color: Colors.secondary,
     }

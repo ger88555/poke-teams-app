@@ -23,8 +23,9 @@ const Navigator = () => (
             return <Feather name={name} size={size} color={color} />
         },
         tabBarStyle: styles.tabBar,
+        tabBarLabelStyle: styles.tabBarLabel,
         tabBarActiveTintColor: Colors.dominant,
-        tabBarInactiveTintColor: Colors.lightAccent
+        tabBarInactiveTintColor: Colors.lightAccent,
     })}>
         <Tab.Screen name="TeamsNavigator" component={TeamsNavigator} options={{ title: "My Teams" }} />
         <Tab.Screen name="ProfileNavigator" component={ProfileNavigator} options={{ title: "My Profile" }} />
