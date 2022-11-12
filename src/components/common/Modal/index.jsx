@@ -1,15 +1,16 @@
 import React from "react"
-import { StyleSheet, View, Modal as BaseModal } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { StyleSheet, View, TouchableWithoutFeedback, Modal as BaseModal, SafeAreaView } from "react-native"
 import { Colors, Measures } from "../../../constants"
 
 export const Modal = ({ onClose = () => {}, children }) => (
     <BaseModal onRequestClose={onClose} transparent={true}>
-        <SafeAreaView style={styles.safeArea}>
-            <View style={styles.innerContainer}>
-                {children}
-            </View>
-        </SafeAreaView>
+        <TouchableWithoutFeedback onPress={onClose}>
+            <SafeAreaView style={styles.safeArea}>
+                <View style={styles.innerContainer}>
+                    {children}
+                </View>
+            </SafeAreaView>
+        </TouchableWithoutFeedback>
     </BaseModal>
 )
 
