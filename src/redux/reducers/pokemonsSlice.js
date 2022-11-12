@@ -97,13 +97,14 @@ export const pokemonsSlice = createSlice({
         })
 
         addCase(fetchPokemons.fulfilled, (state, { payload }) => {
+            state.loading = false
+            state.error = null
+            
             if (!payload) {
                 return
             }
 
             state.pagination.page = 1
-            state.loading = false
-            state.error = null
             state.data.count = payload.count
             state.data.next = payload.next
             state.data.results = [
@@ -121,13 +122,14 @@ export const pokemonsSlice = createSlice({
         })
 
         addCase(fetchMorePokemons.fulfilled, (state, { payload }) => {
+            state.loadingMore = false
+            state.error = null
+
             if (!payload) {
                 return
             }
 
             state.pagination.page++
-            state.loadingMore = false
-            state.error = null
             state.data.next = payload.next
             state.data.results.push(...payload.results)
         })

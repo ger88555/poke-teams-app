@@ -1,8 +1,7 @@
 import React, { useCallback } from "react"
-import { FlatList } from "react-native"
 import { connect, useDispatch, useSelector } from "react-redux"
 import { useFocusEffect } from "@react-navigation/native"
-import { Screen, TeamListItem } from "../../common"
+import { List, Screen, TeamListItem } from "../../common"
 import { fetchTeams, fetchMoreTeams } from "../../../redux/reducers/teamsSlice"
 import { selectTeamsData, selectTeamsLoading, selectTeamsLoadingMore } from "../../../redux/reducers/teamsSlice"
 
@@ -12,41 +11,29 @@ const Teams = ({ navigation }) => {
     const loading = useSelector(selectTeamsLoading)
     const loadingMore = useSelector(selectTeamsLoadingMore)
 
-    const refresh = useCallback(() => { dispatch(fetchTeams()) }, [])
-    const refreshHandler = useCallback(() => {
-        if (loading || loadingMore) {
-            return
-        }
+    const loadHandler = useCallback(() => { dispatch(fetchTeams()) }, [])
+    const loadMoreHandler = useCallback(() => { dispatch(fetchMoreTeams()) }, [])
 
-        refresh()
-    }, [loading, loadingMore, refresh])
-
-    const endReachedHandler = useCallback(() => {
-        if (!teams.length || loading || loadingMore) {
-            return
-        }
-        
-        dispatch(fetchMoreTeams())
-    }, [teams.length, loading, loadingMore])
-
-    useFocusEffect(refresh)
+    useFocusEffect(loadHandler)
 
     const itemPressHandler = useCallback((id) => {
         navigation.navigate("TeamDetails", { id })
     }, [])
 
-    const renderItem = useCallback(({ item, index }) => (
-        <TeamListItem key={index} {...item} onPress={() => itemPressHandler(item.id)} />
+    const ItemComponent = useCallback((item) => (
+        <TeamListItem {...item} onPress={() => itemPressHandler(item.id)} />
     ), [itemPressHandler])
 
     return (
         <Screen scrollable={false}>
-            <FlatList
+            <List 
+                name="teams"
                 data={teams}
-                onRefresh={refreshHandler}
-                refreshing={loading || loadingMore}
-                onEndReached={endReachedHandler}
-                renderItem={renderItem}
+                onLoad={loadHandler}
+                onLoadMore={loadMoreHandler}
+                loading={loading}
+                loadingMore={loadingMore}
+                ItemComponent={ItemComponent}
             />
         </Screen>
     )

@@ -7,7 +7,7 @@ import { Colors } from "../../../constants"
  * @property {String} id Unique identifier of the pokemon
  * @property {String} name Name of the pokemon
  */
-const ListItem = ({ name, onPress = () => {}, selected = false }) => (
+const PickerItem = ({ name, onPress = () => {}, selected = false }) => (
     <TouchableOpacity style={styles.container} onPress={onPress}>
         <Text style={[styles.text, selected && styles.selectedText]}>{name}</Text>
     </TouchableOpacity>
@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
     }
 })
 
-const MemoizedListItem = React.memo(ListItem)
+const MemoizedPickerItem = React.memo(PickerItem)
 
-export { MemoizedListItem as ListItem }
+export { MemoizedPickerItem as PickerItem }

@@ -81,13 +81,14 @@ export const regionsSlice = createSlice({
         })
 
         addCase(fetchRegions.fulfilled, (state, { payload }) => {
+            state.loading = false
+            state.error = null
+            
             if (!payload) {
                 return
             }
 
             state.pagination.page = 1
-            state.loading = false
-            state.error = null
             state.data.count = payload.count
             state.data.next = payload.next
             state.data.results = [
@@ -105,13 +106,14 @@ export const regionsSlice = createSlice({
         })
 
         addCase(fetchMoreRegions.fulfilled, (state, { payload }) => {
+            state.loadingMore = false
+            state.error = null
+
             if (!payload) {
                 return
             }
 
             state.pagination.page++
-            state.loadingMore = false
-            state.error = null
             state.data.next = payload.next
             state.data.results = [
                 ...state.data.results,

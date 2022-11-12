@@ -1,10 +1,11 @@
 import React, { useCallback } from "react"
-import { StyleSheet, View, Text, FlatList } from "react-native"
+import { StyleSheet, View, Text } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { Colors } from "../../../constants"
-import { fetchMorePokemons, selectPokemonsData, selectPokemonsLoading, selectPokemonsLoadingMore } from "../../../redux/reducers/pokemonsSlice"
 import { Modal } from "../Modal"
-import { ListItem } from "./ListItem"
+import { List as BaseList } from "../List"
+import { fetchMorePokemons, fetchPokemons, selectPokemonsData, selectPokemonsLoading, selectPokemonsLoadingMore } from "../../../redux/reducers/pokemonsSlice"
+import { PickerItem } from "./PickerItem"
 
 /**
  * @typedef Pokemon
@@ -16,22 +17,17 @@ import { ListItem } from "./ListItem"
  * @param {Object} props
  * @param {Pokemon} props.value Selected Pokemon
  */
-export const List = ({ selected = null, onSelect = () => {}, onClose = () => {} }) => {
+export const Picker = ({ selected = null, onSelect = () => {}, onClose = () => {} }) => {
     const dispatch = useDispatch()
     const data = useSelector(selectPokemonsData)
     const loading = useSelector(selectPokemonsLoading)
     const loadingMore = useSelector(selectPokemonsLoadingMore)
+    
+    const loadHandler = useCallback(() => dispatch(fetchPokemons()), [])
+    const loadMoreHandler = useCallback(() => dispatch(fetchMorePokemons()), [])
 
-    const endReachedHandler = useCallback(() => {
-        if (!data.results.length || loading || loadingMore) {
-            return
-        }
-
-        dispatch(fetchMorePokemons())
-    }, [data.results.length, loading, loadingMore])
-
-    const renderItem = useCallback(({ item, index }) => (
-        <ListItem key={index} {...item} onPress={() => onSelect(item)} selected={item.id == selected?.id} />
+    const ItemCompoent = useCallback((item) => (
+        <PickerItem {...item} onPress={() => onSelect(item)} selected={item.id == selected?.id} />
     ), [selected?.id])
 
     return (
@@ -39,12 +35,14 @@ export const List = ({ selected = null, onSelect = () => {}, onClose = () => {} 
             <View style={styles.headerContainer}>
                 <Text style={styles.headerText}>Select a Pokemon</Text>
             </View>
-            <FlatList
+            <BaseList
+                name="pokemons"
                 data={data.results}
-                refreshing={loading || loadingMore}
-                onEndReached={endReachedHandler}
-                renderItem={renderItem}
-                style={styles.container}
+                loading={loading}
+                loadingMore={loadingMore}
+                onLoad={loadHandler}
+                onLoadMore={loadMoreHandler}
+                ItemComponent={ItemCompoent}
                 contentContainerStyle={styles.container}
             />
         </Modal>

@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDocs, getDoc, query, limit, startAt, where, orderBy, deleteDoc, setDoc, FieldPath, getCountFromServer } from "firebase/firestore"
+import { collection, doc, addDoc, getDocs, getDoc, query, limit, startAfter, where, orderBy, deleteDoc, setDoc, FieldPath, getCountFromServer } from "firebase/firestore"
 import { db } from "./db"
 
 export class TeamsApi {
@@ -6,13 +6,13 @@ export class TeamsApi {
     /**
      * @param {Object} params 
      * @param {?Number} limit
-     * @param {?Number} offset
+     * @param {?string} startAfter Get fields after the given team ID
      */
     static async list(params){  
         const constraints = [
             orderBy("name"),
             params.limit && limit(params.limit),
-            params.offset && startAt(params.offset),
+            params.startAfter && startAfter(doc(db, "teams", params.startAfter)),
             params.user && where("user", "==", params.user)
         ].filter(c => c)
 

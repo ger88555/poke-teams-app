@@ -4,7 +4,7 @@ import { TeamsApi } from "../../services/firestore"
 const initialState = {
     data: [],
     pagination: {
-        page: 0,
+        startAfter: null,
         perPage: 60,
     },
     error: null,
@@ -30,14 +30,10 @@ export const fetchMoreTeams = createAsyncThunk(
     "teams/fetch/more",
     async (_, { rejectWithValue, getState }) => {
         const id = getState().auth.user.id
-        const { pagination: { page, perPage }, data: { next } } = getState().teams
-
-        if (!next) {
-            return []
-        }
+        const { pagination: { startAfter, perPage } } = getState().teams
 
         try {
-            return await TeamsApi.list({ limit: perPage, offset: perPage * page, user: id })
+            return await TeamsApi.list({ limit: perPage, startAfter, user: id })
         } catch (error) {
             return rejectWithValue(error.message)
         }
@@ -58,13 +54,15 @@ export const teamsSlice = createSlice({
         })
 
         addCase(fetchTeams.fulfilled, (state, { payload }) => {
+            state.loading = false
+            state.error = null
+            
             if (!payload) {
                 return
             }
 
             state.pagination.page = 1
-            state.loading = false
-            state.error = null
+            state.pagination.startAfter = payload.length ? payload[payload.length-1].id : null
             state.data = [
                 ...payload
             ]
@@ -80,13 +78,14 @@ export const teamsSlice = createSlice({
         })
 
         addCase(fetchMoreTeams.fulfilled, (state, { payload }) => {
+            state.loadingMore = false
+            state.error = null
+
             if (!payload) {
                 return
             }
 
             state.pagination.page++
-            state.loadingMore = false
-            state.error = null
             state.data = [
                 ...state.data,
                 ...payload

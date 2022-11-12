@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import { StyleSheet, TouchableOpacity } from "react-native"
 import { Label } from "./Label"
 import { Image } from "./Image"
-import { List } from "./List"
+import { Picker } from "./Picker"
 import { PokemonsApi } from "../../../services/pokeapi"
 
 /**
@@ -49,7 +49,7 @@ const Slot = ({ value = null, onChange = () => {}, disabled = false, small = fal
                 <Image uri={image} />
                 {small || <Label>{value?.name}</Label>}
             </TouchableOpacity>
-            {selecting && (<List selected={value} onSelect={selectHandler} onClose={() => setSelecting(false)} />)}
+            {selecting && (<Picker selected={value} onSelect={selectHandler} onClose={() => setSelecting(false)} />)}
         </>
     )
 }
