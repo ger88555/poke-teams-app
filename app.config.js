@@ -8,10 +8,10 @@ export default {
         slug: "poke-teams-app",
         version: "1.0.0",
         orientation: "portrait",
-        icon: "./src/assets/icon.png",
+        icon: "./src/assets/images/icon.png",
         userInterfaceStyle: "light",
         splash: {
-            image: "./src/assets/splash.png",
+            image: "./src/assets/images/splash.png",
             resizeMode: "contain",
             backgroundColor: "#ffffff"
         },
@@ -26,13 +26,13 @@ export default {
         },
         android: {
             adaptiveIcon: {
-                foregroundImage: "./src/assets/adaptive-icon.png",
+                foregroundImage: "./src/assets/images/adaptive-icon.png",
                 backgroundColor: "#FFFFFF"
             },
             softwareKeyboardLayoutMode: "pan",
         },
         web: {
-            favicon: "./src/assets/favicon.png"
+            favicon: "./src/assets/images/favicon.png"
         },
         facebookAppId: process.env.FIREBASE_AUTH_FACEBOOK_APP_ID,
         extra: {
