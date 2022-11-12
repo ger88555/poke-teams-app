@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { StyleSheet, TouchableOpacity } from "react-native"
 import { Label } from "./Label"
 import { Image } from "./Image"
 import { List } from "./List"
+import { PokemonsApi } from "../../../services/pokeapi"
 
 /**
  * @typedef Pokemon
@@ -16,6 +17,7 @@ import { List } from "./List"
  */
 const Slot = ({ value = null, onChange = () => {}, disabled = false, small = false }) => {
     const [selecting, setSelecting] = useState(false)
+    const [image, setImage] = useState(null)
     
     const pressHandler = useCallback(() => {
         setSelecting(true)
@@ -26,10 +28,25 @@ const Slot = ({ value = null, onChange = () => {}, disabled = false, small = fal
         setSelecting(false)
     }, [onChange])
 
+
+    useEffect(() => {
+        if (value?.id) {
+            loadImage(value.id)
+        } else {
+            setImage(null)
+        }
+    }, [value])
+
+    const loadImage = useCallback(async (id) => {
+        const { sprites } = await PokemonsApi.get(id)
+
+        setImage(sprites.front_default)
+    }, [])
+
     return (
         <>
             <TouchableOpacity style={[styles.container, small && styles.smallContainer]} onPress={pressHandler} activeOpacity={0.9} disabled={disabled}>
-                <Image uri={value?.id} />
+                <Image uri={image} />
                 {small || <Label>{value?.name}</Label>}
             </TouchableOpacity>
             {selecting && (<List selected={value} onSelect={selectHandler} onClose={() => setSelecting(false)} />)}

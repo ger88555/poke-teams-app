@@ -10,4 +10,12 @@ export class PokemonsApi extends BasePokeApi {
         
         return data
     }
+
+    static async get(id){
+        const request = async () => await axios.get(id)
+
+        const { data } = await this.perform(request)
+        
+        return data
+    }
 }
