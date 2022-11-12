@@ -5,7 +5,7 @@ import { Button } from "../Button"
 import { Separator } from "../Separator"
 import { FormError } from "../FormError"
 import { InputField } from "../InputField"
-import { fetchRegions, selectRegionsData } from "../../../redux/reducers/regionsSlice"
+import { fetchRegions, selectRegionsData, selectRegionsLoading } from "../../../redux/reducers/regionsSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { Regions, Validation } from "../../../constants"
 import { setPokemonsRegion } from "../../../redux/reducers/pokemonsSlice"
@@ -13,6 +13,7 @@ import { setPokemonsRegion } from "../../../redux/reducers/pokemonsSlice"
 export const DetailsStep = ({ jumpTo }) => {
     const dispatch = useDispatch()
     const regions = useSelector(selectRegionsData)
+    const regionsLoading = useSelector(selectRegionsLoading)
     const { control, formState: { errors, defaultValues } } = useFormContext()
     const region_id = useWatch({ name: "region_id", control })
     const initialRegion = defaultValues?.region_id
@@ -80,7 +81,7 @@ export const DetailsStep = ({ jumpTo }) => {
                         required: Validation.required("region"),
                     }}
                     render={({ field: { onChange, onBlur, value } }) => (
-                        <InputField label="region" onChange={onChange} onBlur={onBlur} value={value} items={displayRegions} />
+                        <InputField label="region" onChange={onChange} onBlur={onBlur} value={value} items={displayRegions} loading={regionsLoading} />
                     )}
                     name="region_id"
                 />

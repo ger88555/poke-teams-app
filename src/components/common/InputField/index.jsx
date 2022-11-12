@@ -4,7 +4,7 @@ import { Label } from "./Label"
 import { TextInput } from "./TextInput"
 import { PickerInput } from "./PickerInput"
 
-export const InputField = ({ label = "", value = "", items = null, onChange = () => {}, onBlur = () => {}, disabled = false }) => {
+export const InputField = ({ label = "", value = "", items = null, onChange = () => {}, onBlur = () => {}, disabled = false, loading = false }) => {
     const baseProps = { value, onChange, onBlur, disabled }
 
     return (
@@ -13,7 +13,7 @@ export const InputField = ({ label = "", value = "", items = null, onChange = ()
             {items === null ? (
                 <TextInput {...baseProps} />
             ) : (
-                <PickerInput {...baseProps} items={items} />
+                <PickerInput {...baseProps} loading={loading} items={items} />
             )}
         </View>
     )
