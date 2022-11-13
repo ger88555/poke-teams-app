@@ -10,7 +10,8 @@ export const useGoogleSignIn = () => {
     const dispatch = useDispatch()
 
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-        clientId: Firebase.clientIds.google
+        clientId: Firebase.clientIds.google,
+        expoClientId: Firebase.clientIds.google,
     })
 
     useEffect(() => {

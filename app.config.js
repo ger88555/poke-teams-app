@@ -7,6 +7,7 @@ export default {
         name: "poke-teams-app",
         slug: "poke-teams-app",
         scheme: "pokeapp",
+        owner: process.env.EXPO_USER || "ger88555",
         version: "1.0.0",
         orientation: "portrait",
         icon: "./src/assets/images/icon.png",
@@ -20,12 +21,17 @@ export default {
             fallbackToCacheTimeout: 0
         },
         assetBundlePatterns: [
-            "**/*"
+            "./src/assets/**/*"
         ],
         ios: {
-            supportsTablet: true
+            bundleIdentifier: "com.ger88555.pokeapp",
+            supportsTablet: true,
+            infoPlist: {
+                LSApplicationQueriesSchemes: ["pokeapp"]
+            },
         },
         android: {
+            package: "com.ger88555.pokeapp",
             adaptiveIcon: {
                 foregroundImage: "./src/assets/images/adaptive-icon.png",
                 backgroundColor: "#FFFFFF"
@@ -51,6 +57,9 @@ export default {
                     messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
                     measurementId: process.env.FIREBASE_MEASUREMENT_ID,
                 }
+            },
+            eas: {
+                projectId: "2771aba0-3426-4509-a892-5aa36af794dc"
             }
         },
     }

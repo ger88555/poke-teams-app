@@ -5,6 +5,7 @@ Una plataforma de equipos Pokemon.
 
 - `node` >=14.
 - `yarn` instalado globalmente.
+- Una cuenta de [Expo](https://expo.dev)
 - Un emulador, simulador o dispositivo físico (configurado en modo de depuración) para ejecutar la App.
 
 ### Para depuración en Android
@@ -28,15 +29,26 @@ Copiar el archivo `.env.example` en la raíz de este proyecto a uno llamado `.en
   cp .env.example .env
 ```
 
-NOTA: Para agilizar el proceso de revisión, las variables de entorno ya han sido configuradas en el archivo de ejemplo.
+En el archivo `.env`, poner el usuario de Expo en la variable **APP_OWNER**:
 
-## 2. Instalar las dependencias
+```bash
+# Expo
+APP_OWNER=Aquí va el usuario de Expo
+```
+
+Guardar los cambios al archivo `.env`.
+
+## 2. Preparar el proyecto de Firebase
+
+Seguir [esta guía](./docs/FIREBASE_SETUP.md) para preparar un proyecto de Firebase con soporte para autenticación y base de datos en Firestore.
+
+## 3. Instalar las dependencias
 
 ```bash
   yarn install
 ```
 
-## 3. Iniciar el servidor de Metro
+## 4. Iniciar el servidor de Metro
 
 ```bash
   yarn start
@@ -44,7 +56,7 @@ NOTA: Para agilizar el proceso de revisión, las variables de entorno ya han sid
 
 El servidor de Metro estará listo cuando se muestre un código QR.
 
-## 4. Lanzar la aplicación en Expo Go
+## 5. Lanzar la aplicación en Expo Go
 
 Desde la terminal en donde corre el servidor de Metro, presiona `a` para lanzar la aplicación en Android o `i` para lanzar la aplicación en iOS.
 
